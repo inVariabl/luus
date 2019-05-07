@@ -1,0 +1,48 @@
+#!/bin/sh
+# LUP - LARBS Universal Player
+# takes link/destination and opens in application
+
+source_type=$(printf "Link\\nDestination\\nHistory" | dmenu -i -p "LUP - Source Type: ")
+[[ "$source_type" = "" ]] && exit 1
+echo 'Source Type: ' $source_type
+
+if [[ "$1" = "" ]]; then
+if [[ "$source_type" = "Link" ]]; then
+  source=$(xclip -o)
+elif [[ "$source_type" = "Destination" ]]; then
+[[ "$source_type" = "" ]] && exit 1
+  dest_type=$(printf "File\\nFolder" | dmenu -i -p "Player type: ")
+  if [[ "$dest_type" = "File" ]]; then
+    dirlist=$(sudo find ~/Videos/ ~/Pictures/ ~/Sync/ ~/Downloads/ ~/Memes/ -type f -maxdepth 8 2>/dev/null)
+    source=$(echo "$dirlist" | dmenu -i -p "File Destination: " -l 10)
+  elif [[ "$dest_type" = "Folder" ]]; then
+    dirlist=$(sudo find ~/Videos/ ~/Pictures/ ~/Sync/ ~/Downloads/ ~/Memes/ -type d -maxdepth 8 2>/dev/null)
+    source=''$(echo "$dirlist" | dmenu -i -p "Folder Destination: " -l 10)''
+  fi
+elif [[ "$source_type" = "History" ]]; then
+  history_list=$(tail -n 10 ~/.lup_history | tac | dmenu -i -p "Recent Files: " -l 5)
+  source=$(echo "$history_list" | cut -f1)
+  player=$(echo "$history_list" | cut -f2)
+fi
+else
+  source="$1"
+fi
+[[ $source = "" ]] && exit 1
+echo 'Source: ' $source
+
+# player (mpv (video), mpv (audio), sxiv, zathura)
+if [[ $player = "" ]]; then
+  player=$(echo -e "mpv (video)\nmpv (audio)\nsxiv\nzathura\nfirefox" | dmenu -i -p "Player: ")
+fi
+echo "Player: $player"
+case "$player" in
+	"mpv (video)") note "Playing: '$source'" && mpv "$source" ;;
+	"mpv (audio)") note "Playing: '$source'" && st -e mpv --no-video "$source" ;;
+	"sxiv") sxiv -rtf "$source" ;;
+	"zathura") zathura "$source" ;;
+	"firefox") firefox "$source" ;;
+esac
+
+# History
+echo -e "$source"'\t'"$player"'\t''#'`date` >> ~/.lup_history
+exit 1

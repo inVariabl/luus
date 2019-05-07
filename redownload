@@ -1,0 +1,7 @@
+#!/bin/sh
+# Redownloads lud download from history
+
+source=$(tail -n 10 ~/.lud_history | tac | dmenu -i -p "Resume Download: " -l 10)
+link=$(echo "$source" | cut -f1)
+dir=$(echo "$source" | cut -f2)
+lud "$link" "$dir"
