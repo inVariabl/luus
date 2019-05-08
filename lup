@@ -1,6 +1,8 @@
 #!/bin/sh
 # LUP - LARBS Universal Player
-# takes link/destination and opens in application
+# Takes link/destination and opens in application
+
+pgrep -x dmenu && exit
 
 source_type=$(printf "Link\\nDestination\\nHistory" | dmenu -i -p "LUP - Source Type: ")
 [[ "$source_type" = "" ]] && exit 1
