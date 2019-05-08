@@ -1,5 +1,5 @@
 # luus
-_Linux Universal Utility Scripts_
+_LARBS Universal Utility Scripts_
 
 ### Features
 1. **Speed** - Resource friendly, easily integrated with the command-line, i3wm and ranger.
@@ -8,7 +8,7 @@ _Linux Universal Utility Scripts_
 
 
 ## LUD
-_(The) Linux Universal Downloader_
+_(The) LARBS Universal Downloader_
 
 #### Usage
 1. Grabs clipboard / `$1`
@@ -16,7 +16,7 @@ _(The) Linux Universal Downloader_
 3. Choose type of download
 
 ## LUP
-_(The) Linux Universal Player_
+_(The) LARBS Universal Player_
 
 #### Usage
 1. Choose clipboard/destination / `$1`
