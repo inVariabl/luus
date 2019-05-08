@@ -1,8 +1,6 @@
 #!/bin/sh
 # LUD - The LARBS Universal Downloader
 # A dmenu utility to download files from various sites & types
-# Created by Daniel Crooks - github.com/inVariabl
-### MINIMALIST VERSION ###
 
 pgrep -x dmenu && exit
 
@@ -37,7 +35,6 @@ cd "$dir"
 echo -e "$link"'\t'"$dir"'\t''#'`date` >> ~/.lud_history
 
 # Sort & Download
-# Youtube-DL
 yttest=$(youtube-dl -e --abort-on-error "$link")
 if [[ $? -eq 0 ]]; then
   echo "Downloader: Youtube-dl"
