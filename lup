@@ -36,8 +36,8 @@ if [[ $player = "" ]]; then
 fi
 echo "Player: $player"
 case "$player" in
-	"mpv (video)") note "Playing: '$source'" && mpv "$source" ;;
-	"mpv (audio)") note "Playing: '$source'" && st -e mpv --no-video "$source" ;;
+	"mpv (video)") notify-send "Playing: '$source'" && mpv "$source" ;;
+	"mpv (audio)") notify-send "Playing: '$source'" && st -e mpv --no-video "$source" ;;
 	"sxiv") sxiv -rtf "$source" ;;
 	"zathura") zathura "$source" ;;
 	"firefox") firefox "$source" ;;
